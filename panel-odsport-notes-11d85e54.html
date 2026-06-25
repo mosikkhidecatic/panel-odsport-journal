@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>od体育 · 轻量导航页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f9fc;
+            color: #1d2b36;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 顶部导航 */
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #dce5eb;
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(6px);
+            background: rgba(255,255,255,0.92);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: -0.01em;
+            color: #076e7a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2a404a;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #0f8b9a;
+        }
+
+        .nav-link-highlight {
+            background: #e2f0f2;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 72px 0 56px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0a2a33;
+            line-height: 1.25;
+        }
+
+        .hero h1 span {
+            color: #0f8b9a;
+        }
+
+        .hero p {
+            max-width: 640px;
+            margin: 24px auto 32px;
+            font-size: 1.1rem;
+            color: #2f4a56;
+        }
+
+        .hero .bookmark-hint {
+            display: inline-block;
+            background: #e0f0f3;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            color: #07666f;
+            border: 1px solid #bcd8de;
+        }
+
+        .hero .bookmark-hint svg {
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        /* 网格卡片区域：场景模块 */
+        .scene-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin: 28px 0 48px;
+        }
+
+        .scene-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 24px 28px;
+            box-shadow: 0 4px 12px rgba(0, 40, 50, 0.04);
+            transition: transform 0.15s, box-shadow 0.2s;
+            border: 1px solid #e3edf1;
+        }
+
+        .scene-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(7, 110, 122, 0.08);
+            border-color: #b2d5dc;
+        }
+
+        .scene-card .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: #ddeef2;
+            border-radius: 16px;
+            margin-bottom: 18px;
+        }
+
+        .scene-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0f3643;
+        }
+
+        .scene-card p {
+            font-size: 0.95rem;
+            color: #3e5a67;
+            margin-bottom: 16px;
+        }
+
+        .scene-card .tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            background: #e7f3f6;
+            padding: 2px 14px;
+            border-radius: 40px;
+            color: #0b6b77;
+            font-weight: 500;
+        }
+
+        /* 说明与提示区域 */
+        .info-section {
+            background: white;
+            border-radius: 24px;
+            padding: 36px 32px;
+            margin: 20px 0 40px;
+            border: 1px solid #e0ecef;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px 48px;
+        }
+
+        .info-block {
+            flex: 1 1 280px;
+        }
+
+        .info-block h4 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #1d7b87;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #d6eaef;
+            padding-bottom: 6px;
+            display: inline-block;
+        }
+
+        .info-block p, .info-block li {
+            font-size: 0.95rem;
+            color: #2b4552;
+            margin-bottom: 6px;
+        }
+
+        .info-block ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-block ul li::before {
+            content: "▹";
+            color: #0f8b9a;
+            margin-right: 8px;
+        }
+
+        .faq-preview {
+            background: #f1f8fa;
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-top: 16px;
+        }
+
+        .faq-preview strong {
+            color: #0f5d68;
+        }
+
+        /* 收藏/再次访问引导 */
+        .revisit-banner {
+            background: linear-gradient(135deg, #e3f2f5 0%, #cde6ec 100%);
+            border-radius: 28px;
+            padding: 28px 32px;
+            margin: 8px 0 48px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px 28px;
+            border: 1px solid #bcd8df;
+        }
+
+        .revisit-banner p {
+            flex: 1 1 260px;
+            font-size: 1rem;
+            color: #10333e;
+        }
+
+        .revisit-banner .meta-note {
+            background: white;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #0b6b77;
+            white-space: nowrap;
+            border: 1px solid #9dc2cb;
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: auto;
+            border-top: 1px solid #dbebef;
+            padding: 28px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #4f6d7a;
+        }
+
+        .footer a {
+            color: #0a7a87;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 680px) {
+            .navbar .container {
+                flex-wrap: wrap;
+                gap: 10px 0;
+            }
+            .nav-links {
+                gap: 16px;
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .scene-grid {
+                gap: 16px;
+            }
+            .info-section {
+                padding: 24px 20px;
+            }
+            .revisit-banner {
+                padding: 22px 20px;
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .revisit-banner .meta-note {
+                white-space: normal;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .container {
+                padding: 0 16px;
+            }
+            .scene-card {
+                padding: 24px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">od·nav</div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link-highlight">首页</a></li>
+                <li><a href="#">场景</a></li>
+                <li><a href="#">说明</a></li>
+                <li><a href="#">收藏</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>再次回来 · <span>持续关注</span></h1>
+            <p>对于经常使用 <strong><a href="https://panel-odsport.com" style="color:#0f8b9a; text-decoration:none;">od体育</a></strong> 的用户来说，最有效的方式就是收藏当前地址，并熟悉导航入口。保持简洁的操作路径，比每次搜索更节省时间。</p>
+            <div class="bookmark-hint">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#07666f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                建议添加书签 · 一键返回
+            </div>
+        </div>
+    </section>
+
+    <!-- 三个场景模块 -->
+    <div class="container">
+        <div class="scene-grid">
+            <div class="scene-card">
+                <div class="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f8b9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>快速回访</h3>
+                <p>每次通过收藏夹打开 <a href="https://panel-odsport.com" style="color:#0f8b9a; text-decoration:none; font-weight:500;">od体育</a>，直接跳过中间跳转页。适合高频使用场景，减少重复操作。</p>
+                <span class="tag">书签直达</span>
+            </div>
+            <div class="scene-card">
+                <div class="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f8b9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>多端同步</h3>
+                <p>在常用设备上分别收藏 <strong>panel-odsport.com</strong>，统一使用体验。无论桌面或移动端，入口始终保持一致。</p>
+                <span class="tag">跨设备</span>
+            </div>
+            <div class="scene-card">
+                <div class="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f8b9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <h3>持续关注</h3>
+                <p>建议不定期回来看看，保持对 <a href="https://panel-odsport.com" style="color:#0f8b9a; text-decoration:none; font-weight:500;">od体育</a> 动态的了解。通过收藏夹维护一个稳定的入口，比自己记忆更可靠。</p>
+                <span class="tag">稳定入口</span>
+            </div>
+        </div>
+
+        <!-- 常见说明 + FAQ 摘要 -->
+        <div class="info-section">
+            <div class="info-block">
+                <h4>为什么收藏</h4>
+                <p>域名访问是互联网最基础的方式。将 <a href="https://panel-odsport.com" style="color:#0f8b9a; text-decoration:none; font-weight:500;">od体育</a> 加入浏览器收藏夹，避免每次输入或搜索，降低出错概率。尤其适合需要快速响应的场景。</p>
+                <div class="faq-preview">
+                    <strong>FAQ · 摘要</strong>
+                    <ul style="margin-top:8px;">
+                        <li>如何添加书签？浏览器地址栏右侧星标或菜单内“收藏”</li>
+                        <li>移动端同样支持收藏到主屏幕</li>
+                        <li>建议同时备份到云同步书签</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-block">
+                <h4>再次访问的节奏</h4>
+                <p>保持合理的访问习惯，主要依赖收藏入口与直接导航。如果希望减少中间步骤，直接打开 <strong><a href="https://panel-odsport.com" style="color:#0f8b9a; text-decoration:none; font-weight:500;">od体育</a></strong> 即可，无需额外跳转。</p>
+                <ul>
+                    <li>每周固定访问可形成习惯</li>
+                    <li>利用浏览器自动填充</li>
+                    <li>避免依赖第三方搜索链接</li>
+                </ul>
+            </div>
+            <div class="info-block">
+                <h4>环境提示</h4>
+                <p>保持网络稳定，同时确认书签指向正确。如果收藏后无法打开，可检查网络或再次手动输入 <strong>panel-odsport.com</strong> 进行核验。</p>
+                <ul>
+                    <li>建议使用 Chrome / Safari / Edge 最新版</li>
+                    <li>清除缓存后重新收藏一次</li>
+                    <li>两个以上设备可互相验证</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 再次访问 banner -->
+        <div class="revisit-banner">
+            <p><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f8b9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 如果你已经收藏过 <strong>od体育</strong>，现在就是再次打开的好时机。</p>
+            <span class="meta-note">持续使用 &nbsp;·&nbsp; 入口不变</span>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p><a href="https://panel-odsport.com">od体育</a> · 轻量导航页 · 专为再次访问与收藏设计</p>
+        </div>
+    </footer>
+
+</body>
+</html>
